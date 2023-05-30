@@ -1,38 +1,68 @@
+main { 
+  background-image: url("./resources/websitebackground.jpg");
+  color: white;
+  background-attachment: fixed;
+}
+section {
+  height: auto;
+  flex-grow: 2;
+}
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  position: relative;
+  background-color: rgb(44, 0, 74);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  border-bottom: 5px solid rgb(119, 74, 150);
 }
-
-.App-link {
-  color: #61dafb;
+.App-header nav {
+  position: fixed;
+  right: 10px;
+  top: 10px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logout {
+  height: 30px;
+  width: auto;
+  color: white;
+  background-color: rgb(44, 0, 74);
+}
+.logout:hover {
+  transition: .2s;
+  background-color: rgb(119, 74, 150);
+}
+.searchbar {
+  margin: auto;
+  padding-top: 30px;
+}
+.sections {
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: auto;
+  width: auto;
+}
+.section {
+  padding: 50px;
+  min-height: 400px;
+  width: 400px;
+  border: 5px solid rgb(119, 74, 150);
+  border-radius: 10px;
+}
+.mid {
+  flex-grow: 1;
+}
+#title span {
+  color: rgb(182, 0, 192)
+}
+#playlist {
+  background-color: rgb(44, 0, 74);
+}
+#search-results {
+  background-color: rgb(44, 0, 74);
 }

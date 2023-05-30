@@ -1,0 +1,23 @@
+.searcharea {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#search-bar {
+    background-color: rgb(44, 0, 74);
+    border: 2px solid rgb(119, 74, 150);
+    width: 300px;
+    height: auto;
+    margin: auto;
+    padding: 10px 0px;
+}
+#search-bar #searchbutton {
+    height: 30px;
+    width: auto;
+    color: white;
+    background-color: rgb(44, 0, 74);
+}
+#search-bar #searchbutton:hover {
+    transition: .2s;
+    background-color: rgb(119, 74, 150);
+}

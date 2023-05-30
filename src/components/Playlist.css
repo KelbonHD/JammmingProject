@@ -1,0 +1,6 @@
+.playlist h2 {
+    font-size: 50px;
+    margin: auto;
+    border-bottom: 2px solid white;
+    background-color: rgb(30, 0, 50);
+}

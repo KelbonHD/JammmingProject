@@ -1,0 +1,11 @@
+.track-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.track-list .track {
+    position: relative;
+    flex-basis: 100%;
+    padding: 5px 0px;
+}
