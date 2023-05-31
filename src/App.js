@@ -4,6 +4,7 @@ import axios from 'axios';
 import SearchBar from './components/SearchBar';
 import Playlist from './components/Playlist';
 import SearchResults from './components/SearchResults';
+import cancel from "../src/resources/cancelButtonImg.svg"
 
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const REDIRECT_URI = "http://localhost:3000"
@@ -12,6 +13,10 @@ const RESPONSE_TYPE = "token";
 
 function App() {
   const [token, setToken] = useState('');
+  const [tracks, setTracks] = useState([])
+  const [playlistTrackId, setPlaylistTrackId] = useState([])
+  const [playlistTrack, setPlaylistTrack] = useState([])
+  const currentPlaylist = [];
 
   useEffect(() => {
   const hash = window.location.hash;
@@ -33,11 +38,29 @@ const logout = () => {
   window.localStorage.removeItem('token')
 };
 
-const [tracks, setTracks] = useState([])
+
 const searchObtainer = (data) => {
-  setTracks(data)
+  const newTracks = data
+  setTracks(newTracks)
 }
 
+const getTrack = async() => {
+  const {data} = await axios.get(`https://api.spotify.com/v1/tracks/${playlistTrackId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  setPlaylistTrack(data.track)
+} 
+
+const addToPlaylist = (data) => {
+  const addedSongId = data;
+  setPlaylistTrackId(addedSongId);
+  if (!currentPlaylist.includes(addedSongId)) {
+    currentPlaylist.push(data)
+    getTrack();
+}
+}
   return (
     <div className="App">
       <header className="App-header">
@@ -55,11 +78,11 @@ const searchObtainer = (data) => {
           </div>
           <div className="sections">
           <section className="section search-results" id="search-results">
-            <SearchResults tracks={tracks}/>
+            <SearchResults tracks={tracks} addToPlaylist={addToPlaylist}/>
           </section>
           <span className="mid"></span>
           <section className="section playlist" id="playlist">
-            <Playlist/>
+            <Playlist token={token} track={playlistTrack}/>
           </section>
           </div>
       </main>

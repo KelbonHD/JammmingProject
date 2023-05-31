@@ -42,7 +42,7 @@ section {
 .sections {
   padding: 50px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
   height: auto;
   width: auto;
@@ -57,12 +57,26 @@ section {
 .mid {
   flex-grow: 1;
 }
+.track {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+}
+.track div {
+  flex-grow: 1;
+  height: 20px;
+}
+.track div p {
+  margin: 0px;
+  height: 20px;
+  float: left;
+}
 #title span {
-  color: rgb(182, 0, 192)
+  color: rgb(182, 0, 192);
 }
 #playlist {
-  background-color: rgb(44, 0, 74);
+  background-color: rgba(44, 0, 74, .8);
 }
 #search-results {
-  background-color: rgb(44, 0, 74);
+  background-color: rgba(44, 0, 74, .8);
 }
