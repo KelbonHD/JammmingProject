@@ -4,6 +4,7 @@ import add from '../resources/addButtonImg.svg';
 
 function Track(){
     return (
+        
         <div className="track">
             <p className="title">Title</p><br/>
             <p className="artist">Artist</p>

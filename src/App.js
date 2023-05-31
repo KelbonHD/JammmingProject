@@ -1,5 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import SearchBar from './components/SearchBar';
 import Playlist from './components/Playlist';
 import SearchResults from './components/SearchResults';
@@ -30,9 +31,12 @@ function App() {
 const logout = () => {
   setToken('')
   window.localStorage.removeItem('token')
+};
+
+const [tracks, setTracks] = useState([])
+const searchObtainer = (data) => {
+  setTracks(data)
 }
-
-
 
   return (
     <div className="App">
@@ -47,11 +51,11 @@ const logout = () => {
       </header>
       <main>
           <div className="searchbar" id="searchbar">
-            <SearchBar/>
+            <SearchBar token={token} searchObtainer={searchObtainer}/>
           </div>
           <div className="sections">
           <section className="section search-results" id="search-results">
-            <SearchResults/>
+            <SearchResults tracks={tracks}/>
           </section>
           <span className="mid"></span>
           <section className="section playlist" id="playlist">
