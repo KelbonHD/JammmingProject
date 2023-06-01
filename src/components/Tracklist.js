@@ -2,14 +2,17 @@ import React from "react";
 import "./Tracklist.css"
 import Track from "./Track";
 
-function Tracklist() {
+function Tracklist(props) {
     return (
-        <div className="track-list">
-            <Track/>
-            <Track/>
-            <Track/>
-            <Track/>
-            <Track/>
+        <div className="tracklist">
+            {props.tracks.map(track => 
+                <Track
+                track={track}
+                key={track.id}
+                onAdd={props.onAdd}
+                onRemove={props.onRemove}
+                isRemovable={props.IsARemoval}/>
+                )}
         </div>
     )
 }

@@ -1,5 +1,6 @@
-.playlist h2 {
+.playlist input {
     font-size: 50px;
+    color: white;
     margin: auto;
     border-bottom: 2px solid white;
     background-color: rgb(30, 0, 50);

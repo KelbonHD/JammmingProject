@@ -4,3 +4,6 @@
     border-bottom: 2px solid white;
     background-color: rgb(30, 0, 50);
 }
+.track-id {
+    display: none;
+}

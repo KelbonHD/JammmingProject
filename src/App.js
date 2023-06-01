@@ -1,10 +1,9 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react';
 import SearchBar from './components/SearchBar';
 import Playlist from './components/Playlist';
 import SearchResults from './components/SearchResults';
-import cancel from "../src/resources/cancelButtonImg.svg"
+import axios from 'axios';
 
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const REDIRECT_URI = "http://localhost:3000"
@@ -14,9 +13,8 @@ const RESPONSE_TYPE = "token";
 function App() {
   const [token, setToken] = useState('');
   const [tracks, setTracks] = useState([])
-  const [playlistTrackId, setPlaylistTrackId] = useState([])
-  const [playlistTrack, setPlaylistTrack] = useState([])
-  const currentPlaylist = [];
+  const [playlistName, setPlaylistName] = useState('New Playlist')
+  const [playlistTracks, setPlaylistTracks] = useState([])
 
   useEffect(() => {
   const hash = window.location.hash;
@@ -32,35 +30,42 @@ function App() {
   setToken(token)
   
 }, []);
+const searchTracks = async(searchKey) => {
+    const {data} = await axios.get("https://api.spotify.com/v1/search", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      params: {
+        q: searchKey,
+        type: "track"
+      }
+    })
+    let tracks = data.tracks.items
+    setTracks(tracks)
+    console.log(tracks)
+  }
 
 const logout = () => {
   setToken('')
   window.localStorage.removeItem('token')
 };
 
+const changeName = useCallback((name) => {
+  setPlaylistName(name);
+}, [])
 
-const searchObtainer = (data) => {
-  const newTracks = data
-  setTracks(newTracks)
-}
+const addTrack = useCallback((newTrack) => {
+  if (playlistTracks.some((track) => track.id === newTrack.id)) {
+    return;
+  }
+  setPlaylistTracks(oldPlaylist => [...oldPlaylist, newTrack])
+})
 
-const getTrack = async() => {
-  const {data} = await axios.get(`https://api.spotify.com/v1/tracks/${playlistTrackId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-  setPlaylistTrack(data.track)
-} 
+const removeTrack = useCallback((trackToRemove) => {
+  setPlaylistTracks((oldPlaylist) => oldPlaylist.filter((existingTrack) => existingTrack.id !== trackToRemove.id))
+}, [])
 
-const addToPlaylist = (data) => {
-  const addedSongId = data;
-  setPlaylistTrackId(addedSongId);
-  if (!currentPlaylist.includes(addedSongId)) {
-    currentPlaylist.push(data)
-    getTrack();
-}
-}
+
   return (
     <div className="App">
       <header className="App-header">
@@ -68,21 +73,26 @@ const addToPlaylist = (data) => {
           <nav>
             {!token ? 
             <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
-            :   <button class="logout" onClick={logout}>Logout</button>
+            :   <button className="logout" onClick={logout}>Logout</button>
             }
           </nav>
       </header>
       <main>
           <div className="searchbar" id="searchbar">
-            <SearchBar token={token} searchObtainer={searchObtainer}/>
+            <SearchBar token={token} onSearch={searchTracks} />
           </div>
           <div className="sections">
           <section className="section search-results" id="search-results">
-            <SearchResults tracks={tracks} addToPlaylist={addToPlaylist}/>
+            <SearchResults SearchResults={tracks} onAdd={addTrack}/>
           </section>
           <span className="mid"></span>
           <section className="section playlist" id="playlist">
-            <Playlist token={token} track={playlistTrack}/>
+            <Playlist 
+            token={token} 
+            playlistTracks={playlistTracks}
+            playlistName={playlistName}
+            onNameChange={changeName}
+            onRemove={removeTrack}/>
           </section>
           </div>
       </main>

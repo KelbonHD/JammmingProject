@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./Playlist.css"
-import cancel from "../resources/cancelButtonImg.svg"
-import axios from "axios";
+import Tracklist from "./Tracklist";
 
-function Playlist({token, playlistTrack}) {
+
+function Playlist(props) {
+    const handleNameChange = useCallback(
+        (event) => {
+        props.onNameChange(event.target.value);
+    }, 
+        [props]
+    );
+    const renderTracks = () => {
+        let playlistTracks = Array.from(props.playlistTracks)
+        return (
+            <Tracklist
+            tracks={playlistTracks}
+            isRemovable={true}
+            onRemove={props.onRemove}
+            />
+        )
+    }
     return (
-        <div>
-        <h2>Playlist</h2>
-            <div className="track">
-                <div>
-                <p className="title">Title</p><br/>
-                <p className="artist">Artist</p>
-                </div>
-                <button type="button"><img src={cancel} alt="cancel" class="move-button" /></button>
-            </div>
-        </div>  
+        <div className="playlist">
+        <input onChange={handleNameChange} defaultValue="New Playlist"/>
+        {renderTracks()}
+        </div>
     )
 }
 
