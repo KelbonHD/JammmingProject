@@ -1,4 +1,18 @@
+audio {
+    color: white;
+    border: 4px rgb(182, 0, 192) solid;
+    border-radius: 32px;
+    max-width: 40%;
+}
 .track {
     display: flex;
     justify-content: space-between;
+}
+.move-button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+.move-image {
+    background-color: transparent;
 }

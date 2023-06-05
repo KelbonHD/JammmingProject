@@ -30,6 +30,7 @@ section {
   width: auto;
   color: white;
   background-color: rgb(44, 0, 74);
+  cursor: pointer
 }
 .login:hover {
   transition: .2s;
@@ -44,6 +45,7 @@ section {
   width: auto;
   color: white;
   background-color: rgb(44, 0, 74);
+  cursor: pointer;
 }
 .logout:hover {
   transition: .2s;

@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import "./Track.css"
-import cancel from "../resources/cancelButtonImg.svg"
-import add from "../resources/addButtonImg.svg"
+import cancel from "../resources/cancelButtonImg.png"
+import add from "../resources/addButtonImg.png"
 
 function Track(props){
     const addTrack = useCallback((event) => {
@@ -15,11 +15,11 @@ function Track(props){
     const renderAddOrRemove = () => {
         if(props.isRemovable) {
             return (
-                <button type="button"><img src={cancel} alt="cancel" className="move-button cancel" onClick={() =>removeTrack()}/></button>
+                <button type="button" className="move-button"><img src={cancel} alt="cancel" className="move-image cancel" onClick={() =>removeTrack()}/></button>
             )
         }
         return (
-            <button type="button"><img src={add} alt="add" className="move-button add" onClick={() => addTrack()}/></button>
+            <button type="button" className="move-button"><img src={add} alt="add" className="move-image add" onClick={() => addTrack()}/></button>
         )
     }
 
@@ -30,6 +30,9 @@ function Track(props){
                 <p className="artist">{props.track.artists.map(artist => (artist.name))}</p>
                 <p className="track-id">{props.track.id}</p>
                 </div>
+                <audio controls>
+                    <source src={props.track.preview_url}></source>
+                </audio>
                 {renderAddOrRemove()}
             </div>
     )

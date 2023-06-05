@@ -17,6 +17,7 @@
     width: auto;
     color: white;
     background-color: rgb(44, 0, 74);
+    cursor: pointer;
 }
 .save-playlist-button:hover {
     transition: .2s;
