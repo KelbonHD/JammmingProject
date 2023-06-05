@@ -8,7 +8,7 @@ function Playlist(props) {
         (event) => {
         props.onNameChange(event.target.value);
     }, 
-        [props]
+        [props.onNameChange]
     );
     const renderTracks = () => {
         let playlistTracks = Array.from(props.playlistTracks)
@@ -21,10 +21,13 @@ function Playlist(props) {
         )
     }
     return (
+        <>
         <div className="playlist">
         <input onChange={handleNameChange} defaultValue="New Playlist"/>
         {renderTracks()}
         </div>
+        <button className="save-playlist-button" onClick={props.onSave}>Save Playlist</button>
+        </>
     )
 }
 

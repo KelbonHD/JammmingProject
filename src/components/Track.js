@@ -2,25 +2,24 @@ import React, { useCallback } from "react";
 import "./Track.css"
 import cancel from "../resources/cancelButtonImg.svg"
 import add from "../resources/addButtonImg.svg"
-import { render } from "@testing-library/react";
 
 function Track(props){
     const addTrack = useCallback((event) => {
         props.onAdd(props.track)
-    }, [props]);
+    }, [props.onAdd]);
     
     const removeTrack = useCallback((event) => {
         props.onRemove(props.track)
-    }, [props]);
+    }, [props.onRemove]);
 
     const renderAddOrRemove = () => {
         if(props.isRemovable) {
             return (
-                <button type="button"><img src={cancel} alt="cancel" className="move-button cancel"/></button>
+                <button type="button"><img src={cancel} alt="cancel" className="move-button cancel" onClick={() =>removeTrack()}/></button>
             )
         }
         return (
-            <button type="button"><img src={add} alt="add" className="move-button add"/></button>
+            <button type="button"><img src={add} alt="add" className="move-button add" onClick={() => addTrack()}/></button>
         )
     }
 
@@ -31,7 +30,7 @@ function Track(props){
                 <p className="artist">{props.track.artists.map(artist => (artist.name))}</p>
                 <p className="track-id">{props.track.id}</p>
                 </div>
-                {renderAddOrRemove}
+                {renderAddOrRemove()}
             </div>
     )
 }
