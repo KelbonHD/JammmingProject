@@ -3,6 +3,8 @@
     margin: auto;
     border-bottom: 2px solid white;
     background-color: rgb(30, 0, 50);
+    height: 70px;
+    width: 100%;
 }
 .track-id {
     display: none;

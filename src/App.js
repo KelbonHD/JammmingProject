@@ -74,19 +74,27 @@ const removeTrack = useCallback((trackToRemove) => {
 
 const createPlaylist = async(newId) => {
   console.log(newId)
-  var data = {
+  var data = JSON.stringify ({
       "name": playlistName,
-      "description": "Playlist created from Kelton's Jammming Web App"
+      "description": "Playlist created from Kelton's Jammming Web App",
+      "public": true
+  })
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: `https://api.spotify.com/v1/users/${newId}/playlists`,
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": `application/json`
+    },
+    data: data
   }
-  var headers = {
-    "Authorization": "Bearer " + token,
-    "Content-Type": `application/json`
-  }
-  console.log(headers["Authorization"])
-  return await axios.post(`https://api.spotify.com/v1/users/${newId}/playlists`,data,headers)
-  .then((data) => {
-    console.log("playlist created")
-    savePlaylist(data.id);
+  console.log(config.headers["Authorization"])
+  await axios.request(config)
+  .then((response) => {
+    const newPlaylistId = JSON.stringify(response.data.id);
+    console.log("playlist created with id " + newPlaylistId)
+    savePlaylist(newPlaylistId);
   })
   .catch((err) => {
     console.log(`Something went wrong creating the playlist: ${err}`)
@@ -102,26 +110,34 @@ const getUserProfile = async() => {
   console.log(data.id)
   console.log(token)
   let newId = data.id;
-  setUserId(newId)
+  for (let i = 0; i <= 1; i++) {
+      setUserId(newId)
+  }
   console.log(userId)
   createPlaylist(newId)
 }
 
-const savePlaylist = async(event, playlistId) => {
+const savePlaylist = async(playlistId) => {
   let tracksToSubmit = playlistTracks.map(track => track.uri)
-  console.log(playlistTracks)
   console.log(playlistId)
-  await axios.post(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-    params: {
-      uris: tracksToSubmit,
-    }
+  console.log(tracksToSubmit)
+  var data = JSON.stringify ({
+    "uris" : tracksToSubmit
   })
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: `https://api.spotify.com/v1/playlists/${playlistId.slice(1, -1)}/tracks`,
+    headers: {
+    "Authorization": "Bearer " + token,
+    "Content-Type": `application/json`
+  },
+  data: data
+}
+  await axios.request(config)
   .then(() => {
     console.log("playlist saved")
-    window.alert("Your playlist has been saved.")
+    window.alert("Your playlist has been saved successfully.")
   })
   .catch((err) => {
     console.log(`Something went wrong saving the playlist: ${err}`)
@@ -134,7 +150,7 @@ const savePlaylist = async(event, playlistId) => {
           <h1 id="title">Ja<span>mmm</span>ing</h1>
           <nav>
             {!token ? 
-            <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=playlist-modify-public`}>Login to Spotify</a>
+            <button className="login"><a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=playlist-modify-public`} className="login-link">Login to Spotify</a></button>
             :   <button className="logout" onClick={logout}>Logout</button>
             }
           </nav>

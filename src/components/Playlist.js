@@ -23,7 +23,7 @@ function Playlist(props) {
     return (
         <>
         <div className="playlist">
-        <input onChange={handleNameChange} defaultValue="New Playlist"/>
+        <input onChange={handleNameChange} defaultValue="New Playlist Name"/>
         {renderTracks()}
         </div>
         <button className="save-playlist-button" onClick={props.onSave}>Save Playlist</button>
