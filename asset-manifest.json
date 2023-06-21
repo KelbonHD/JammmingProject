@@ -1,18 +1,16 @@
 {
   "files": {
-    "main.css": "/JammmingProject/static/css/main.6e55fa4a.css",
-    "main.js": "/JammmingProject/static/js/main.9b7e1ca6.js",
+    "main.css": "/JammmingProject/static/css/main.cb50b6ac.css",
+    "main.js": "/JammmingProject/static/js/main.5252dc92.js",
     "static/js/787.62d5a415.chunk.js": "/JammmingProject/static/js/787.62d5a415.chunk.js",
     "static/media/websitebackground.jpg": "/JammmingProject/static/media/websitebackground.c7e80690c3aec19106b8.jpg",
-    "static/media/cancelButtonImg.svg": "/JammmingProject/static/media/cancelButtonImg.c2832ecc15faa9463e25fbaa71f1dd3d.svg",
-    "static/media/addButtonImg.svg": "/JammmingProject/static/media/addButtonImg.430b6d17986599825db2f62ad1d6c39a.svg",
     "index.html": "/JammmingProject/index.html",
-    "main.6e55fa4a.css.map": "/JammmingProject/static/css/main.6e55fa4a.css.map",
-    "main.9b7e1ca6.js.map": "/JammmingProject/static/js/main.9b7e1ca6.js.map",
+    "main.cb50b6ac.css.map": "/JammmingProject/static/css/main.cb50b6ac.css.map",
+    "main.5252dc92.js.map": "/JammmingProject/static/js/main.5252dc92.js.map",
     "787.62d5a415.chunk.js.map": "/JammmingProject/static/js/787.62d5a415.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6e55fa4a.css",
-    "static/js/main.9b7e1ca6.js"
+    "static/css/main.cb50b6ac.css",
+    "static/js/main.5252dc92.js"
   ]
 }
