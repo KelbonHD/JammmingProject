@@ -6,7 +6,7 @@ import SearchResults from './components/SearchResults';
 import axios from 'axios';
 
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-const REDIRECT_URI = "http://localhost:3000"
+const REDIRECT_URI = "https://kelbonhd.github.io/JammmingProject"
 const CLIENT_ID = "22cf78209a27433e89cb6753557e2a73";
 const RESPONSE_TYPE = "token";
 
